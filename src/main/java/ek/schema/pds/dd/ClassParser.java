@@ -117,6 +117,14 @@ public class ClassParser
                     isAttribute = true;
                 }
             }
+            else if("isAttribute".equals(name))
+            {
+                String val = rd.nextString();
+                if("true".equalsIgnoreCase(val))
+                {
+                    isAttribute = true;
+                }
+            }
             else if("attributeId".equals(name) && isAttribute)
             {
                 ids = parseAttributeId();

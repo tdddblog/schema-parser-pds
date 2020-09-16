@@ -12,7 +12,7 @@ import ek.schema.pds.dd.JsonDDParser;
 import ek.util.CounterMap;
 
 
-public class Test1
+public class PrintCounts
 {
     static DataTypeMap dtMap = new DataTypeMap();
     static CounterMap counters = new CounterMap();
@@ -22,11 +22,16 @@ public class Test1
     {
         dtMap.load(new File("/tmp/schema/data-types-2.cfg"));
                 
-        JsonDDParser parser = new JsonDDParser(new File("/tmp/schema/orex_ldd_OREX_1300.JSON"));
+        JsonDDParser parser = new JsonDDParser(new File("/tmp/schema/PDS4_DAWN_1B00_1000.JSON"));
         DataDictionary dd = parser.parse();
         parser.close();
         
         processSchema(dd);
+        
+        for(CounterMap.Item item: counters.getCounts())
+        {
+            System.out.println(item.name + "  " + item.count);
+        }
     }
     
     
@@ -52,15 +57,10 @@ public class Test1
             String pdsDataType = attrId2Type.get(attr.id);
             if(pdsDataType == null) throw new Exception("No data type mapping for attribute " + attr.id);
             
-            String fieldName = ddClass.nsName + "." + attr.nsName;
+            //String fieldName = ddClass.nsName + "." + attr.nsName;
             String targetDataType = dtMap.getTargetType(pdsDataType);
             
-            if(targetDataType.equals("text"))
-            {
-                System.out.println(fieldName);
-            }
-            
-            //counters.inc(targetDataType);
+            counters.inc(targetDataType);
         }
     }
 
