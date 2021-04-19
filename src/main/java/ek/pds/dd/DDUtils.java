@@ -1,4 +1,4 @@
-package ek.schema.pds.dd;
+package ek.pds.dd;
 
 public class DDUtils
 {

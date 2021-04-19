@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
-import ek.schema.pds.dd.DDAttr;
-import ek.schema.pds.dd.DDClass;
-import ek.schema.pds.dd.DataDictionary;
-import ek.schema.pds.dd.DataTypeMap;
-import ek.schema.pds.dd.JsonDDParser;
+import ek.pds.dd.DDAttr;
+import ek.pds.dd.DDClass;
+import ek.pds.dd.DataDictionary;
+import ek.pds.dd.DataTypeMap;
+import ek.pds.dd.JsonDDParser;
 import ek.util.CounterMap;
 
 
@@ -22,7 +22,7 @@ public class PrintCounts
     {
         dtMap.load(new File("/tmp/schema/data-types-2.cfg"));
                 
-        JsonDDParser parser = new JsonDDParser(new File("/tmp/schema/PDS4_DAWN_1B00_1000.JSON"));
+        JsonDDParser parser = new JsonDDParser(new File("/tmp/schema/PDS4_IMG_SURFACE_1B10_1110.JSON"));
         DataDictionary dd = parser.parse();
         parser.close();
         
@@ -30,8 +30,10 @@ public class PrintCounts
         
         for(CounterMap.Item item: counters.getCounts())
         {
-            System.out.println(item.name + "  " + item.count);
+            System.out.println(item.name + "\t" + item.count);
         }
+        
+        System.out.println("TOTAL: " + counters.getTotal());
     }
     
     
@@ -58,9 +60,14 @@ public class PrintCounts
             if(pdsDataType == null) throw new Exception("No data type mapping for attribute " + attr.id);
             
             //String fieldName = ddClass.nsName + "." + attr.nsName;
-            String targetDataType = dtMap.getTargetType(pdsDataType);
+            //String targetDataType = dtMap.getTargetType(pdsDataType);
             
-            counters.inc(targetDataType);
+            String tokens[] = ddClass.nsName.split("\\.");
+            if(tokens.length == 2)
+            {
+                String ns = tokens[0];
+                counters.inc(ns);
+            }
         }
     }
 

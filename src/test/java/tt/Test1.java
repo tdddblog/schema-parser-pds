@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
-import ek.schema.pds.dd.DDAttr;
-import ek.schema.pds.dd.DDClass;
-import ek.schema.pds.dd.DataDictionary;
-import ek.schema.pds.dd.DataTypeMap;
-import ek.schema.pds.dd.JsonDDParser;
+import ek.pds.dd.DDAttr;
+import ek.pds.dd.DDClass;
+import ek.pds.dd.DataDictionary;
+import ek.pds.dd.DataTypeMap;
+import ek.pds.dd.JsonDDParser;
 import ek.util.CounterMap;
 
 

@@ -1,4 +1,4 @@
-package ek.schema.pds.dd;
+package ek.pds.dd;
 
 import java.io.BufferedReader;
 import java.io.File;

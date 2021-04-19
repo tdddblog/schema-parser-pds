@@ -1,4 +1,4 @@
-package ek.schema.pds.dd;
+package ek.pds.dd;
 
 import java.util.ArrayList;
 import java.util.List;
